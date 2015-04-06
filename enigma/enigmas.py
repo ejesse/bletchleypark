@@ -1,3 +1,4 @@
+from enigma import rotors
 
 
 class Enigma:
@@ -19,15 +20,17 @@ class Enigma:
         machine ran the circuit from right to left
         from the perspective of the operator
         """
-        ciphered = letter
-        local_rotors = list(self.rotors)
-        for rotor in local_rotors:
-            ciphered = rotor.right_to_left(ciphered)
-            print(ciphered)
-        ciphered = self.reflector.right_to_left(ciphered)
-        print(ciphered)
-        local_rotors.reverse()
-        for rotor in local_rotors:
-            ciphered = rotor.left_to_right(ciphered)
-            print(ciphered)
-        return ciphered
+        cipher = letter
+        for rotor in self.rotors:
+            cipher = rotor.right_to_left(cipher)
+        cipher = self.reflector.reflect(cipher)
+        for i in range(len(self.rotors)-1,-1,-1):
+            rotor = self.rotors[i]
+            cipher = rotor.left_to_right(cipher)
+        return cipher
+
+    def encrypt_string(self, plaintext):
+        cipher = ''
+        for c in plaintext:
+            cipher += self.encrypt_letter(c)
+        return cipher

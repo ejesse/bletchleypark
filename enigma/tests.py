@@ -36,6 +36,15 @@ class TestRotor(TestCase):
 
 class TestEnigma(TestCase):
 
+    def test_ignore_non_alphas(self):
+        troll_plaintext = 'a *&^%$#@;><?'
+        enigma = Enigma(rotors = [Rotor.rotor_for_name(ENIGMA_I_ROTOR_III),
+                         Rotor.rotor_for_name(ENIGMA_I_ROTOR_II),
+                         Rotor.rotor_for_name(ENIGMA_I_ROTOR_I)])
+        enigma.reflector = Rotor.rotor_for_name(REFLECTOR_B)
+        ciphered = enigma.encrypt_string(troll_plaintext)
+        self.assertEqual(ciphered, 'B')
+
     def test_basic_single_letter(self):
         enigma = Enigma(rotors = [Rotor.rotor_for_name(ENIGMA_I_ROTOR_III),
                          Rotor.rotor_for_name(ENIGMA_I_ROTOR_II),

@@ -1,4 +1,4 @@
-from enigma import rotors
+from enigma.rotors import ALPHABET
 
 
 class Enigma:
@@ -49,6 +49,8 @@ class Enigma:
         from the perspective of the operator
         """
         cipher = letter.upper()
+        if cipher not in ALPHABET:
+            return ''
         for rotor in self.rotors:
             cipher = rotor.right_to_left(cipher)
         cipher = self.reflector.reflect(cipher)

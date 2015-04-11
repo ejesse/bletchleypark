@@ -36,6 +36,12 @@ class TestRotor(TestCase):
 
 class TestEnigma(TestCase):
 
+    def test_cleanse_input(self):
+        self.assertEqual(Enigma.cleanse_input('a'), 'A')
+        weird_chars = '~@#$%^&*()<>?:"{}+_-=[];/.,'
+        for c in weird_chars:
+            self.assertEqual(Enigma.cleanse_input(c), '',)
+
     def test_ignore_non_alphas(self):
         troll_plaintext = 'a *&^%$#@;><?'
         enigma = Enigma(rotors = [Rotor.rotor_for_name(ENIGMA_I_ROTOR_III),

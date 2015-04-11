@@ -36,6 +36,17 @@ class Enigma:
         if position == (len(self.rotors)-2):
             self.rotors[position].rotate()
 
+    @staticmethod
+    def cleanse_input(letter):
+        """
+        A modern keyboard has a lot more inputs
+        than an enigma
+        """
+        cipher = letter.upper()
+        if cipher not in ALPHABET:
+            return ''
+        return cipher
+
     def encrypt_letter(self, letter):
         """
         The basic function, enter a letter and get
@@ -48,9 +59,9 @@ class Enigma:
         machine ran the circuit from right to left
         from the perspective of the operator
         """
-        cipher = letter.upper()
-        if cipher not in ALPHABET:
-            return ''
+        cipher = Enigma.cleanse_input(letter)
+        if cipher == '':
+            return cipher
         for rotor in self.rotors:
             cipher = rotor.right_to_left(cipher)
         cipher = self.reflector.reflect(cipher)

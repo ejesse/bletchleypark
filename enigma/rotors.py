@@ -26,6 +26,7 @@ def get_next_alpha(letter):
     position = ALPHABET.find(letter)
     return ALPHABET[position+1]
 
+
 class Rotor:
 
     def __init__(self, key=''):
@@ -73,8 +74,7 @@ class Rotor:
         return self.key[position]
 
     def reflect(self, letter):
-        position = ALPHABET.find(letter)
-        return self.key[position]
+        raise NotImplemented("Rotors do not relflect!")
 
     def left_to_right(self, letter):
         if self._left_circuit is not None:
@@ -113,37 +113,53 @@ class Rotor:
             r.turnover_position = 'Z'
             return r
         elif name is 'REFLECTOR_BETA':
-            r = Rotor(key='LEYJVCNIXWPBQMDRTAKZGFUHOS')
+            r = Reflector(key='LEYJVCNIXWPBQMDRTAKZGFUHOS')
             r.name = 'REFLECTOR_BETA'
             return r
         elif name is 'REFLECTOR_GAMMA':
-            r = Rotor(key='FSOKANUERHMBTIYCWLQPZXVGJD')
+            r = Reflector(key='FSOKANUERHMBTIYCWLQPZXVGJD')
             r.name = 'REFLECTOR_GAMMA'
             return r
         elif name is 'REFLECTOR_A':
-            r = Rotor(key='EJMZALYXVBWFCRQUONTSPIKHGD')
+            r = Reflector(key='EJMZALYXVBWFCRQUONTSPIKHGD')
             r.name = 'REFLECTOR_A'
             return r
         elif name is 'REFLECTOR_B':
-            r = Rotor(key='YRUHQSLDPXNGOKMIEBFZCWVJAT')
+            r = Reflector(key='YRUHQSLDPXNGOKMIEBFZCWVJAT')
             r.name = 'REFLECTOR_B'
             return r
         elif name is 'REFLECTOR_C':
-            r = Rotor(key='FVPJIAOYEDRZXWGCTKUQSBNMHL')
+            r = Reflector(key='FVPJIAOYEDRZXWGCTKUQSBNMHL')
             r.name = 'REFLECTOR_C'
             return r
         elif name is 'REFLECTOR_B_THIN':
-            r = Rotor(key='ENKQAUYWJICOPBLMDXZVFTHRGS')
+            r = Reflector(key='ENKQAUYWJICOPBLMDXZVFTHRGS')
             r.name = 'REFLECTOR_B_THIN'
             return r
         elif name is 'REFLECTOR_C_THIN':
-            r = Rotor(key='RDOBJNTKVEHMLFCWZAXGYIPSUQ')
+            r = Reflector(key='RDOBJNTKVEHMLFCWZAXGYIPSUQ')
             r.name = 'REFLECTOR_C_THIN'
             return r
         elif name is 'REFLECTOR_ETW':
-            r = Rotor(key='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+            r = Reflector(key='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
             r.name = 'REFLECTOR_ETW'
             return r
         else:
             return None
+
+
+class Reflector(Rotor):
+
+    def __init__(self, key=''):
+        Rotor.__init__(self, key=key)
+
+    def reflect(self, letter):
+        position = ALPHABET.find(letter)
+        return self.key[position]
+
+    def right_to_left(self, letter):
+        raise NotImplemented('Relfectors only reflect')
+
+    def left_to_right(self, letter):
+        raise NotImplemented('Relfectors only reflect')
 

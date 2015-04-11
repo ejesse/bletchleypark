@@ -43,11 +43,6 @@ class Rotor:
         self._enigma = None
         self._is_first = False
 
-    def _its_a_circle(self, position):
-        if position > 25:
-            position = position - 25
-        return position
-
     def _carryover(self, item):
         carryover = item[0]
         return item[1:] + carryover
